@@ -2,8 +2,6 @@ services:
   app:
     container_name: valentina-app
     working_dir: /app
-    env_file:
-      - ./.env
     build:
       context: ./
     logging:
