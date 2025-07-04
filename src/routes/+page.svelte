@@ -7,9 +7,7 @@
 </script>
 
 <article class="prose md:prose-xl">
-	<h1 class="text-center text-blue-400 saturate-50 text-shadow-lg dark:text-blue-200">
-		Valentina Decision Maker
-	</h1>
+	<h1 class="text-center text-blue-400 saturate-50 dark:text-blue-200">Valentina Decision Maker</h1>
 	<p class="text-center">A decision-making tool for my girlfriend Valentina</p>
 
 	{#if !request}
