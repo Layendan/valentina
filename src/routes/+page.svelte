@@ -19,12 +19,12 @@
 		<button class="btn btn-primary mt-1 w-full" onclick={() => (request = text)}>Save</button>
 	{:else}
 		<div class="bg-base-100 border-base-300 rounded-box border p-4">
-			<p>{request}</p>
+			<p class="text-base">{request}</p>
 		</div>
-		<div class="divider"><Heart /></div>
+		<div class="divider my-2"><Heart /></div>
 		<div class="bg-base-100 border-base-300 rounded-box border p-4">
-			<p>{createResponse()}</p>
+			<p class="text-base">{createResponse()}</p>
 		</div>
-		<button class="btn btn-error mt-4 w-full" onclick={() => (request = null)}>Reset</button>
+		<button class="btn btn-error mt-1 w-full" onclick={() => (request = null)}>Reset</button>
 	{/if}
 </article>
