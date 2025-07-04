@@ -3,6 +3,7 @@
 @plugin "daisyui";
 
 body {
+	overscroll-behavior: none;
 	overflow: hidden;
 	font-family: 'Silkscreen', system-ui;
 }

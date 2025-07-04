@@ -22,14 +22,21 @@ describe('Layout sparkles functionality', () => {
 		sparkles.forEach((sparkle) => {
 			expect(sparkle.classList.contains('sparkle')).toBe(true);
 			expect(sparkle.classList.contains('absolute')).toBe(true);
+			expect(sparkle.classList.contains('top-1/2')).toBe(true);
+			expect(sparkle.classList.contains('left-1/2')).toBe(true);
 			expect(sparkle.classList.contains('-z-10')).toBe(true);
+			expect(sparkle.classList.contains('h-screen')).toBe(true);
+			expect(sparkle.classList.contains('w-screen')).toBe(true);
+			expect(sparkle.classList.contains('-translate-x-1/2')).toBe(true);
+			expect(sparkle.classList.contains('-translate-y-1/2')).toBe(true);
+			expect(sparkle.classList.contains('transform')).toBe(true);
 			expect(sparkle.classList.contains('bg-cover')).toBe(true);
 			expect(sparkle.classList.contains('bg-no-repeat')).toBe(true);
 		});
 	});
 
-	it('should ensure sparkles have random positioning', () => {
-		// Render a few sparkles and check they have different positions
+	it('should ensure sparkles have consistent positioning via CSS classes', () => {
+		// Render a few sparkles and check they have consistent CSS classes
 		const sparkle1 = render(Sparkle);
 		const sparkle2 = render(Sparkle);
 		const sparkle3 = render(Sparkle);
@@ -38,24 +45,18 @@ describe('Layout sparkles functionality', () => {
 		const element2 = sparkle2.container.querySelector('.sparkle') as HTMLElement;
 		const element3 = sparkle3.container.querySelector('.sparkle') as HTMLElement;
 
-		// Check that they all have positioning styles
+		// Check that they all have consistent CSS positioning classes
 		[element1, element2, element3].forEach((element) => {
-			expect(element.style.top).toBeTruthy();
-			expect(element.style.left).toBeTruthy();
-			expect(element.style.width).toBeTruthy();
-			expect(element.style.height).toBeTruthy();
-			expect(element.style.transform).toMatch(/rotate\(\d+\.?\d*deg\)/);
+			expect(element.classList.contains('top-1/2')).toBe(true);
+			expect(element.classList.contains('left-1/2')).toBe(true);
+			expect(element.classList.contains('-translate-x-1/2')).toBe(true);
+			expect(element.classList.contains('-translate-y-1/2')).toBe(true);
 		});
 
-		// At least some should have different positions (with high probability)
-		const positions = [element1, element2, element3].map((el) => ({
-			top: el.style.top,
-			left: el.style.left
-		}));
-
-		// Not all positions should be identical
-		const uniquePositions = new Set(positions.map((p) => `${p.top}-${p.left}`));
-		expect(uniquePositions.size).toBeGreaterThan(1);
+		// All sparkles should have identical class names
+		const classNames = [element1, element2, element3].map((el) => el.className);
+		const uniqueClassNames = new Set(classNames);
+		expect(uniqueClassNames.size).toBe(1);
 	});
 
 	it('should verify sparkles are positioned behind content with negative z-index', () => {

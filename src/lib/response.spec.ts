@@ -7,58 +7,51 @@ describe('createResponse', () => {
 		vi.clearAllMocks();
 	});
 
-	it('should return a defined response', async () => {
-		const response = await createResponse();
+	it('should return a defined response', () => {
+		const response = createResponse();
 		expect(response).toBeDefined();
 		expect(typeof response).toBe('string');
 		expect(response.length).toBeGreaterThan(0);
 	});
 
-	it('should return a string from the girlfriend responses array', async () => {
-		const response = await createResponse();
+	it('should return a string from the girlfriend responses array', () => {
+		const response = createResponse();
 
 		// Check that the response is one of the expected girlfriend responses
 		expect(girlfriendResponses).toContain(response);
 	});
 
-	it('should have a delay between 1 and 2 seconds', async () => {
+	it('should return responses immediately without delay', () => {
 		const startTime = Date.now();
-		await createResponse();
+		createResponse();
 		const endTime = Date.now();
 		const duration = endTime - startTime;
 
-		// Should take at least 1 second (1000ms) and at most 2 seconds (2000ms)
-		expect(duration).toBeGreaterThanOrEqual(1000);
-		expect(duration).toBeLessThan(2100); // Adding small buffer for execution time
+		// Should execute immediately (within a few milliseconds)
+		expect(duration).toBeLessThan(50);
 	});
 
-	it('should return different responses on multiple calls (randomness test)', async () => {
+	it('should return different responses on multiple calls (randomness test)', () => {
 		const responses = new Set();
-		const numberOfCalls = 5; // Reduced from 10 to make test faster
+		const numberOfCalls = 10;
 
 		// Call the function multiple times to test randomness
-		const promises = [];
 		for (let i = 0; i < numberOfCalls; i++) {
-			promises.push(createResponse());
+			responses.add(createResponse());
 		}
 
-		const results = await Promise.all(promises);
-		results.forEach((response) => responses.add(response));
-
-		// With 92 possible responses, we should get at least some variety in 5 calls
-		// This test might occasionally fail due to randomness, but it's very unlikely
+		// With 92 possible responses, we should get at least some variety in 10 calls
 		expect(responses.size).toBeGreaterThan(1);
-	}, 15000); // 15 second timeout
-
-	it('should return a Promise', () => {
-		const result = createResponse();
-		expect(result).toBeInstanceOf(Promise);
 	});
 
-	it('should handle multiple concurrent calls', async () => {
-		const promises = [createResponse(), createResponse(), createResponse()];
+	it('should return a string directly, not a Promise', () => {
+		const result = createResponse();
+		expect(typeof result).toBe('string');
+		expect(result).not.toBeInstanceOf(Promise);
+	});
 
-		const responses = await Promise.all(promises);
+	it('should handle multiple concurrent calls', () => {
+		const responses = [createResponse(), createResponse(), createResponse()];
 
 		// All responses should be valid
 		responses.forEach((response) => {
@@ -68,25 +61,21 @@ describe('createResponse', () => {
 		});
 	});
 
-	it('should work with mocked setTimeout for faster testing', async () => {
-		// Mock setTimeout to make the test run instantly
-		vi.useFakeTimers();
+	it('should work with mocked Math.random for deterministic testing', () => {
+		// Mock Math.random to return a specific value
+		vi.spyOn(Math, 'random').mockReturnValue(0.5);
 
-		const responsePromise = createResponse();
+		const response = createResponse();
+		const expectedIndex = Math.floor(0.5 * girlfriendResponses.length);
+		const expectedResponse = girlfriendResponses[expectedIndex];
 
-		// Fast-forward time by 2 seconds
-		vi.advanceTimersByTime(2000);
+		expect(response).toBe(expectedResponse);
 
-		const response = await responsePromise;
-
-		expect(response).toBeDefined();
-		expect(typeof response).toBe('string');
-
-		vi.useRealTimers();
+		vi.restoreAllMocks();
 	});
 
-	it('should not return undefined or empty string', async () => {
-		const response = await createResponse();
+	it('should not return undefined or empty string', () => {
+		const response = createResponse();
 
 		expect(response).not.toBeUndefined();
 		expect(response).not.toBeNull();
@@ -94,29 +83,11 @@ describe('createResponse', () => {
 		expect(response.trim()).not.toBe('');
 	});
 
-	it('should simulate realistic response time variance', async () => {
-		const numberOfTests = 3; // Reduced from 5 to make test faster
-		const promises = [];
-
-		// Start all promises at the same time to run concurrently
-		for (let i = 0; i < numberOfTests; i++) {
-			const startTime = Date.now();
-			const promise = createResponse().then(() => Date.now() - startTime);
-			promises.push(promise);
+	it('should always return a valid response from the array', () => {
+		// Test multiple times to ensure consistency
+		for (let i = 0; i < 50; i++) {
+			const response = createResponse();
+			expect(girlfriendResponses).toContain(response);
 		}
-
-		const times = await Promise.all(promises);
-
-		// Check that we have some variance in response times
-		const minTime = Math.min(...times);
-		const maxTime = Math.max(...times);
-
-		expect(maxTime - minTime).toBeGreaterThan(0);
-
-		// All times should be within expected range
-		times.forEach((time) => {
-			expect(time).toBeGreaterThanOrEqual(1000);
-			expect(time).toBeLessThan(2100);
-		});
-	}, 10000); // 10 second timeout
+	});
 });

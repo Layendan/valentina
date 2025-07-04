@@ -102,13 +102,7 @@ export const girlfriendResponses = [
 	"You're my favorite hello and hardest goodbye"
 ];
 
-export async function createResponse(): Promise<string> {
-	const timeout = Math.floor(Math.random() * 1000) + 1000;
+export function createResponse(): string {
 	const response = girlfriendResponses[Math.floor(Math.random() * girlfriendResponses.length)];
-
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(response);
-		}, timeout);
-	});
+	return response;
 }

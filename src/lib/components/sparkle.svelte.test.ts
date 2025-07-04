@@ -26,36 +26,46 @@ describe('Sparkle component', () => {
 
 		expect(sparkleElement?.classList.contains('sparkle')).toBe(true);
 		expect(sparkleElement?.classList.contains('absolute')).toBe(true);
+		expect(sparkleElement?.classList.contains('top-1/2')).toBe(true);
+		expect(sparkleElement?.classList.contains('left-1/2')).toBe(true);
 		expect(sparkleElement?.classList.contains('-z-10')).toBe(true);
+		expect(sparkleElement?.classList.contains('h-screen')).toBe(true);
+		expect(sparkleElement?.classList.contains('w-screen')).toBe(true);
+		expect(sparkleElement?.classList.contains('-translate-x-1/2')).toBe(true);
+		expect(sparkleElement?.classList.contains('-translate-y-1/2')).toBe(true);
+		expect(sparkleElement?.classList.contains('transform')).toBe(true);
 		expect(sparkleElement?.classList.contains('bg-cover')).toBe(true);
 		expect(sparkleElement?.classList.contains('bg-no-repeat')).toBe(true);
 	});
 
-	it('should apply random positioning when attached', () => {
+	it('should use CSS classes for positioning instead of inline styles', () => {
 		const { container } = render(Sparkle);
 		const sparkleElement = container.querySelector('.sparkle') as HTMLElement;
 
-		// The @attach directive should set inline styles
-		expect(sparkleElement?.style.top).toBeTruthy();
-		expect(sparkleElement?.style.left).toBeTruthy();
-		expect(sparkleElement?.style.transform).toBeTruthy();
+		// Should not have inline styles anymore since we're using CSS classes
+		expect(sparkleElement?.style.top).toBe('');
+		expect(sparkleElement?.style.left).toBe('');
+		expect(sparkleElement?.style.transform).toBe('');
 	});
 
-	it('should apply random size', () => {
+	it('should not apply random size anymore', () => {
 		const { container } = render(Sparkle);
 		const sparkleElement = container.querySelector('.sparkle') as HTMLElement;
 
-		// With Math.random mocked to 0.5, size should be 32px
-		expect(sparkleElement?.style.width).toBeTruthy();
-		expect(sparkleElement?.style.height).toBeTruthy();
+		// The component now uses CSS classes for sizing, not inline styles
+		expect(sparkleElement?.style.width).toBe('');
+		expect(sparkleElement?.style.height).toBe('');
 	});
 
-	it('should apply random rotation', () => {
+	it('should have consistent positioning via CSS classes', () => {
 		const { container } = render(Sparkle);
 		const sparkleElement = container.querySelector('.sparkle') as HTMLElement;
 
-		const transform = sparkleElement.style.transform;
-		expect(transform).toMatch(/rotate\(\d+\.?\d*deg\)/);
+		// All positioning is now handled by CSS classes
+		expect(sparkleElement?.classList.contains('top-1/2')).toBe(true);
+		expect(sparkleElement?.classList.contains('left-1/2')).toBe(true);
+		expect(sparkleElement?.classList.contains('-translate-x-1/2')).toBe(true);
+		expect(sparkleElement?.classList.contains('-translate-y-1/2')).toBe(true);
 	});
 
 	it('should have sparkle animation applied via CSS', () => {
@@ -66,23 +76,20 @@ describe('Sparkle component', () => {
 		expect(sparkleElement?.classList.contains('sparkle')).toBe(true);
 	});
 
-	it('should render multiple sparkles with different properties', () => {
-		// Mock Math.random to return different values for each call
-		let callCount = 0;
-		vi.spyOn(Math, 'random').mockImplementation(() => {
-			callCount++;
-			return callCount * 0.1; // Different value each time
-		});
-
+	it('should render multiple sparkles with consistent properties', () => {
+		// Since the component now uses CSS classes for positioning, all sparkles will be identical
 		const { container: container1 } = render(Sparkle);
 		const { container: container2 } = render(Sparkle);
 
 		const sparkle1 = container1.querySelector('.sparkle') as HTMLElement;
 		const sparkle2 = container2.querySelector('.sparkle') as HTMLElement;
 
-		// They should have different positioning/sizing
-		expect(sparkle1.style.top).not.toBe(sparkle2.style.top);
-		expect(sparkle1.style.left).not.toBe(sparkle2.style.left);
+		// All sparkles should have the same CSS classes
+		expect(sparkle1.className).toBe(sparkle2.className);
+
+		// Both should have the same positioning classes
+		expect(sparkle1.classList.contains('top-1/2')).toBe(sparkle2.classList.contains('top-1/2'));
+		expect(sparkle1.classList.contains('left-1/2')).toBe(sparkle2.classList.contains('left-1/2'));
 	});
 
 	it('should have proper z-index for layering behind content', () => {

@@ -24,11 +24,9 @@
 </svelte:head>
 
 <main
-	class="bg-base-100/30 z-10 container grid min-h-screen min-w-screen items-center justify-items-center backdrop-blur-xs"
+	class="bg-base-100/30 z-10 container grid min-h-screen min-w-screen items-center justify-items-center p-4 backdrop-blur-xs"
 >
 	{@render children()}
 </main>
 
-{#each Array(100) as _, i (i)}
-	<Sparkle />
-{/each}
+<Sparkle />
