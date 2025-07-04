@@ -4,6 +4,12 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
+	server: {
+		port: 3000,
+		host: true,
+		allowedHosts: ['.layendan.dev', 'localhost'],
+		strictPort: true
+	},
 	test: {
 		projects: [
 			{

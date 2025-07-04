@@ -1,38 +1,120 @@
-# sv
+# Valentina Decision Maker 💕
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A heartfelt decision-making tool built with love for Valentina. This SvelteKit application provides thoughtful, supportive responses to help with decision-making and daily thoughts.
 
-## Creating a project
+## ✨ Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Interactive Decision Making**: Share your thoughts and receive supportive responses
+- **Beautiful UI**: Built with Tailwind CSS and DaisyUI for a modern, elegant experience
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Typography**: Enhanced with Tailwind Typography for beautiful content presentation
+- **Custom Font**: Features the distinctive Silkscreen font for a unique aesthetic
+- **Dockerized**: Ready for deployment with Docker and nginx
+
+## 🛠️ Tech Stack
+
+- **Frontend**: SvelteKit 2.16+ with TypeScript
+- **Styling**: Tailwind CSS 4.1+ with DaisyUI components
+- **Testing**: Vitest with browser testing support
+- **Linting**: ESLint with Prettier formatting
+- **Deployment**: Docker with nginx reverse proxy
+- **Package Manager**: pnpm (recommended)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+git clone https://github.com/Layendan/valentina.git
+cd valentina
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+2. Install dependencies:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm install
 ```
 
-## Building
-
-To create a production version of your app:
+3. Start the development server:
 
 ```bash
-npm run build
+pnpm dev
+
+# or open automatically in browser
+pnpm dev -- --open
 ```
 
-You can preview the production build with `npm run preview`.
+The application will be available at `http://localhost:3000`
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## 📝 Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Create production build
+- `pnpm preview` - Preview production build locally
+- `pnpm test` - Run unit tests
+- `pnpm test:unit` - Run unit tests in watch mode
+- `pnpm lint` - Run linting checks
+- `pnpm format` - Format code with Prettier
+- `pnpm check` - Type check with svelte-check
+
+## 🐳 Docker Deployment
+
+The project includes Docker configuration for easy deployment:
+
+```bash
+# Build and run with docker-compose
+docker-compose up --build
+
+# Run in detached mode
+docker-compose up -d
+```
+
+The application will be served through nginx on the configured port.
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:unit
+```
+
+Tests are configured to run in the browser environment using Playwright.
+
+## 🎨 Design System
+
+The project uses:
+
+- **DaisyUI**: For component styling and themes
+- **Tailwind Typography**: For beautiful prose styling
+- **Silkscreen Font**: For unique character and personality
+- **Responsive Design**: Mobile-first approach
+
+## 🔧 Configuration
+
+The project is configured with:
+
+- **SvelteKit**: Full-stack framework with Node.js adapter
+- **TypeScript**: For type safety
+- **Tailwind CSS**: Utility-first CSS framework
+- **ESLint + Prettier**: Code quality and formatting
+- **Vitest**: Fast unit testing
+
+## 🤝 Contributing
+
+This is a personal project, but suggestions and improvements are welcome!
+
+## 📄 License
+
+This project is private and created with love for Valentina.
