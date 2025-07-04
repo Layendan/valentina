@@ -1,5 +1,7 @@
 # Valentina Decision Maker 💕
 
+## [https://valentina.layendan.dev/](https://valentina.layendan.dev/)
+
 A heartfelt decision-making tool built with love for Valentina. This SvelteKit application provides thoughtful, supportive responses to help with decision-making and daily thoughts.
 
 ## ✨ Features
