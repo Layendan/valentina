@@ -1,6 +1,6 @@
 {
-    "short_name": "Val",
-    "name": "Valentina",
+    "short_name": "VAL",
+    "name": "VAL (Valentina's Automated Love)",
     "icons": [
         {
             "src": "/32x32.png",
@@ -25,6 +25,6 @@
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#605DFF",
+    "theme_color": "#769ECB",
     "background_color": "#1C2229"
 }

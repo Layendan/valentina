@@ -4,53 +4,38 @@ import Sparkle from '$lib/components/Sparkle.svelte';
 
 // Test sparkles functionality separately since layout has complex children props
 describe('Layout sparkles functionality', () => {
-	it('should render multiple sparkles as intended in layout', () => {
-		// Simulate what the layout does - render 25 sparkles
-		const sparkles: HTMLElement[] = [];
+	it('should render sparkle component as intended in layout', () => {
+		// Test that the Sparkle component renders correctly when used in layout
+		const { container } = render(Sparkle);
+		const sparkleElement = container.querySelector('div');
 
-		for (let i = 0; i < 25; i++) {
-			const { container } = render(Sparkle);
-			const sparkleElement = container.querySelector('.sparkle') as HTMLElement;
-			if (sparkleElement) {
-				sparkles.push(sparkleElement);
-			}
-		}
+		expect(sparkleElement).toBeTruthy();
 
-		expect(sparkles.length).toBe(25);
-
-		// Check that each sparkle has the proper styling
-		sparkles.forEach((sparkle) => {
-			expect(sparkle.classList.contains('sparkle')).toBe(true);
-			expect(sparkle.classList.contains('absolute')).toBe(true);
-			expect(sparkle.classList.contains('top-1/2')).toBe(true);
-			expect(sparkle.classList.contains('left-1/2')).toBe(true);
-			expect(sparkle.classList.contains('-z-10')).toBe(true);
-			expect(sparkle.classList.contains('h-screen')).toBe(true);
-			expect(sparkle.classList.contains('w-screen')).toBe(true);
-			expect(sparkle.classList.contains('-translate-x-1/2')).toBe(true);
-			expect(sparkle.classList.contains('-translate-y-1/2')).toBe(true);
-			expect(sparkle.classList.contains('transform')).toBe(true);
-			expect(sparkle.classList.contains('bg-cover')).toBe(true);
-			expect(sparkle.classList.contains('bg-no-repeat')).toBe(true);
-		});
+		// Check that sparkle has the proper styling
+		expect(sparkleElement?.classList.contains('absolute')).toBe(true);
+		expect(sparkleElement?.classList.contains('inset-0')).toBe(true);
+		expect(sparkleElement?.classList.contains('-z-10')).toBe(true);
+		expect(sparkleElement?.classList.contains('h-screen')).toBe(true);
+		expect(sparkleElement?.classList.contains('w-screen')).toBe(true);
+		expect(sparkleElement?.classList.contains('bg-cover')).toBe(true);
+		expect(sparkleElement?.classList.contains('bg-no-repeat')).toBe(true);
+		expect(sparkleElement?.classList.contains('blur-xs')).toBe(true);
 	});
 
-	it('should ensure sparkles have consistent positioning via CSS classes', () => {
+	it('should ensure sparkle has consistent positioning via CSS classes', () => {
 		// Render a few sparkles and check they have consistent CSS classes
 		const sparkle1 = render(Sparkle);
 		const sparkle2 = render(Sparkle);
 		const sparkle3 = render(Sparkle);
 
-		const element1 = sparkle1.container.querySelector('.sparkle') as HTMLElement;
-		const element2 = sparkle2.container.querySelector('.sparkle') as HTMLElement;
-		const element3 = sparkle3.container.querySelector('.sparkle') as HTMLElement;
+		const element1 = sparkle1.container.querySelector('div') as HTMLElement;
+		const element2 = sparkle2.container.querySelector('div') as HTMLElement;
+		const element3 = sparkle3.container.querySelector('div') as HTMLElement;
 
 		// Check that they all have consistent CSS positioning classes
 		[element1, element2, element3].forEach((element) => {
-			expect(element.classList.contains('top-1/2')).toBe(true);
-			expect(element.classList.contains('left-1/2')).toBe(true);
-			expect(element.classList.contains('-translate-x-1/2')).toBe(true);
-			expect(element.classList.contains('-translate-y-1/2')).toBe(true);
+			expect(element.classList.contains('absolute')).toBe(true);
+			expect(element.classList.contains('inset-0')).toBe(true);
 		});
 
 		// All sparkles should have identical class names
@@ -59,19 +44,20 @@ describe('Layout sparkles functionality', () => {
 		expect(uniqueClassNames.size).toBe(1);
 	});
 
-	it('should verify sparkles are positioned behind content with negative z-index', () => {
+	it('should verify sparkle is positioned behind content with negative z-index', () => {
 		const { container } = render(Sparkle);
-		const sparkleElement = container.querySelector('.sparkle');
+		const sparkleElement = container.querySelector('div');
 
 		expect(sparkleElement?.classList.contains('-z-10')).toBe(true);
 		expect(sparkleElement?.classList.contains('absolute')).toBe(true);
 	});
 
-	it('should confirm sparkles have animation classes', () => {
+	it('should confirm sparkle has background styling classes', () => {
 		const { container } = render(Sparkle);
-		const sparkleElement = container.querySelector('.sparkle');
+		const sparkleElement = container.querySelector('div');
 
-		// The sparkle class enables the CSS animation
-		expect(sparkleElement?.classList.contains('sparkle')).toBe(true);
+		// The sparkle has background image styling
+		expect(sparkleElement?.classList.contains('bg-cover')).toBe(true);
+		expect(sparkleElement?.classList.contains('bg-no-repeat')).toBe(true);
 	});
 });

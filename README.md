@@ -1,4 +1,4 @@
-# Valentina Decision Maker 💕
+# VAL _(Valentina's Automated Love)_ 💕
 
 ## [https://valentina.layendan.dev/](https://valentina.layendan.dev/)
 

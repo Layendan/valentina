@@ -1,6 +1,22 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+	name: 'light';
+	default: true;
+	prefersdark: false;
+	color-scheme: 'light';
+	--color-primary: oklch(68.71% 0.08 251.86);
+	--color-primary-content: oklch(29% 0.07 243.16);
+}
+@plugin "daisyui/theme" {
+	name: 'dark';
+	default: false;
+	prefersdark: true;
+	color-scheme: 'dark';
+	--color-primary: oklch(88.33% 0.03 254.69);
+	--color-primary-content: oklch(43% 0 0);
+}
 
 body {
 	overscroll-behavior: none;
