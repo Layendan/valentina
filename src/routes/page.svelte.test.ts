@@ -2,6 +2,7 @@ import { page } from '@vitest/browser/context';
 import { describe, expect, it, beforeEach } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import Page from './+page.svelte';
+import { decisionResponses, girlfriendResponses } from '$lib/response';
 
 describe('/+page.svelte', () => {
 	beforeEach(() => {
@@ -168,10 +169,7 @@ describe('/+page.svelte', () => {
 		await valingButton.click();
 
 		// The girlfriend response should be displayed immediately
-		// Check for any text that looks like a girlfriend response
-		const responseElements = page.getByText(
-			/love|you|I'm|Let's|happy|smile|beautiful|proud|trust|grateful|cuddle/i
-		);
+		const responseElements = page.getByText(new RegExp(girlfriendResponses.join('|')));
 		await expect.element(responseElements.first()).toBeInTheDocument();
 
 		// Reset button should be present
@@ -188,9 +186,7 @@ describe('/+page.svelte', () => {
 		await decisionButton.click();
 
 		// Should have decision-style response
-		const decisionResponse = page.getByText(
-			/Yes|No|do it|reconsider|gamble|Meow|go for it|trust|judgment|sleep on it/i
-		);
+		const decisionResponse = page.getByText(new RegExp(decisionResponses.join('|')));
 		await expect.element(decisionResponse.first()).toBeInTheDocument();
 
 		// Reset and test girlfriend response
@@ -204,9 +200,7 @@ describe('/+page.svelte', () => {
 		await valingButton.click();
 
 		// Should have girlfriend-style response
-		const girlfriendResponse = page.getByText(
-			/love|you|I'm|Let's|happy|smile|beautiful|proud|trust|grateful|cuddle/i
-		);
+		const girlfriendResponse = page.getByText(new RegExp(girlfriendResponses.join('|')));
 		await expect.element(girlfriendResponse.first()).toBeInTheDocument();
 	});
 });
